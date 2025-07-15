@@ -151,6 +151,7 @@
         html.enable = true;
         nixd = {
           enable = true;
+          filetypes = [ "nix" ];
           settings =
             let
               flake = ''(builtins.getFlake "/etc/nixos/flake")""'';
@@ -250,6 +251,7 @@
       enable = true;
       settings.enable_autosnippets = true;
     };
+    cmp-zsh.enable = true;
     vim-css-color = {
       enable = true;
     };
