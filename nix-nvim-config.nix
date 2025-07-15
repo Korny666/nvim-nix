@@ -250,7 +250,9 @@
       enable = true;
       settings.enable_autosnippets = true;
     };
-
+    vim-css-color = {
+      enable = true;
+    };
   };
 
   keymaps = [
