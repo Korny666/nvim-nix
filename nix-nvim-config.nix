@@ -13,6 +13,8 @@
     winwidth = 80;
   };
   colorschemes.onedark.enable = true;
+  # Format on save
+  extraConfigVim = ''autocmd BufWritePre * lua vim.lsp.buf.format({ async = false })  '';
   plugins = {
     colorizer = {
       enable = true;
