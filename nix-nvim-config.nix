@@ -14,7 +14,26 @@
   };
   colorschemes.onedark.enable = true;
   plugins = {
-    web-devicons.enable = true; # Warning wants this explicitly
+    colorizer = {
+      enable = true;
+      settings = {
+        filetypes = {
+          __unkeyed-1 = "*";
+          __unkeyed-2 = "!vim";
+          css = {
+            rgb_fn = true;
+          };
+          html = {
+            names = false;
+          };
+        };
+        user_commands = [
+          "ColorizerToggle"
+          "ColorizerReloadAllBuffers"
+        ];
+
+      };
+    };
     which-key.enable = true;
     bufferline.enable = true;
     markview.enable = true;
@@ -74,19 +93,21 @@
     };
     # Filebrowser
     nvim-tree.enable = true;
+    web-devicons.enable = true; # Warning wants this explicitly
     # Language Higlighting etc.
     treesitter = {
       enable = true;
       grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+      nixvimInjections = true;
 
       settings = {
-        highlight.enable = true;
+        #    highlight.enable = true;
         # Install missing Parsers
         auto_install = true;
         # Mark Code Blocks
         incremental_selection.enable = true;
         # Indent Code
-        # indent.enable = true;
+        indent.enable = true;
       };
     };
 
@@ -94,7 +115,7 @@
     treesitter-context = {
       enable = true;
     };
-    # QoL for code, showing definitions, current scope, renaming, etc...
+    #  # QoL for code, showing definitions, current scope, renaming, etc...
     treesitter-refactor = {
       enable = true;
       highlightCurrentScope.enable = true;
@@ -111,6 +132,8 @@
       move.enable = true;
     };
 
+    ts-comments.enable = true;
+
     # Language Server:
     lsp = {
       enable = true;
@@ -119,6 +142,8 @@
         # prismals.enable = true;
         # prismals.package = pkgs.nodePackages."@prisma/language-server"; Seems broken as of 25.05
         volar.enable = true;
+        cssls.enable = true;
+        tailwindcss.enable = true;
         ts_ls = {
           enable = true;
           settings = {
@@ -171,8 +196,6 @@
 
     lspsaga = {
       enable = true;
-      lightbulb.sign = false;
-      ui.codeAction = "󰴺";
       diagnostic.extendRelatedInformation = true;
     };
     lsp-signature.enable = true;
@@ -182,9 +205,8 @@
     # Autocompletion
     cmp = {
       enable = true;
-      autoEnableSources = false;
+      autoEnableSources = true;
       settings = {
-
         sources = [
           { name = "nvim_lsp"; }
           { name = "path"; }
@@ -251,9 +273,18 @@
       enable = true;
       settings.enable_autosnippets = true;
     };
-    cmp-zsh.enable = true;
-    vim-css-color = {
+    cmp-zsh = {
       enable = true;
+    };
+
+    gitsigns = {
+      enable = true;
+      settings = {
+        current_line_blame = true;
+        current_line_blame_opts = {
+          ignore_whitespace = true;
+        };
+      };
     };
   };
 
