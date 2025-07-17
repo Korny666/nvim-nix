@@ -30,7 +30,13 @@ in
   };
   colorschemes.onedark.enable = true;
   # Format on save
-  extraConfigVim = ''autocmd BufWritePre * lua vim.lsp.buf.format({ async = false })  '';
+  extraConfigVim = ''
+    set expandtab        " Tabs → Spaces
+    set shiftwidth=2     " >>/<< rückt um 2 Spaces ein/aus
+    set tabstop=2        " Tabstops alle 2 Spaces
+    set softtabstop=2    " <Tab>/<BS> fügt 2 Spaces ein/löscht
+    autocmd BufWritePre * lua vim.lsp.buf.format({ async = false })  
+  '';
   plugins = {
     colorizer = {
       enable = true;
@@ -222,6 +228,7 @@ in
     lsp-status.enable = true;
     lsp-format.enable = true;
     lspkind.enable = true;
+
     cmp-emoji = {
       enable = true;
     };
@@ -266,13 +273,6 @@ in
             priority = 1000;
             option = {
               inherit get_bufnrs;
-            };
-          }
-          {
-            name = "gitlab";
-            priority = 1000;
-            option = {
-              hosts = [ "https://gitlab.dnm.radiofrance.fr" ];
             };
           }
           {
