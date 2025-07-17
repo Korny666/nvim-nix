@@ -475,5 +475,25 @@ in
       action = "<cmd>lua vim.diagnostic.open_float()<CR>";
       options.desc = "Open full error/warning";
     }
+    {
+      key = "<Leader>fp";
+      action = "<cmd>Telescope grep_string<CR>";
+      mode = [
+        "n"
+        "v"
+      ];
+    }
+    {
+      key = "<Leader><Leader><Tab>";
+      action = "<cmd>lua require'telescope.builtin'.resume()<CR>";
+      options.desc = "Resume telescope";
+      mode = [ "n" ];
+    }
+    {
+      key = "<Leader><Tab>";
+      action = "<cmd>lua require'telescope.builtin'.buffers({sort_lastused=true, sort_mru=true})<CR>";
+      options.desc = "Find buffers (sorted)";
+      mode = [ "n" ];
+    }
   ];
 }
