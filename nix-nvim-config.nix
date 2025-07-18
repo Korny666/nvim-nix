@@ -334,14 +334,14 @@ in
 
         sources = [
           {
-            name = "nvim_lsp";
+            name = "nvim_lsp_signature_help";
             priority = 1000;
             option = {
               inherit get_bufnrs;
             };
           }
           {
-            name = "nvim_lsp_signature_help";
+            name = "nvim_lsp";
             priority = 1000;
             option = {
               inherit get_bufnrs;
