@@ -250,6 +250,8 @@ in
             "cmp.mapping(cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Select}), {'i', 's'})";
           "<S-Tab>" = # Lua
             "cmp.mapping(cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Select}), {'i', 's'})";
+          "<Down>" = "require('cmp').mapping.select_next_item()";
+          "<Up>" = "require('cmp').mapping.select_prev_item()";
           "<CR>" = # Lua
             "cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace })";
         };
