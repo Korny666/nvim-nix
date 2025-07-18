@@ -199,7 +199,20 @@ in
             ];
           };
         };
-        eslint.enable = true;
+        eslint = {
+          enable = true;
+          filetypes = [
+            "javascript"
+            "javascriptreact"
+            "javascript.jsx"
+            "typescript"
+            "typescriptreact"
+            "typescript.tsx"
+            "vue"
+            "svelte"
+            "astro"
+          ];
+        };
         bashls.enable = true;
         postgres_lsp.enable = true;
         lemminx.enable = true;
