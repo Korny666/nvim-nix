@@ -362,7 +362,7 @@ in
           }
           {
             name = "nvim_lsp_document_symbol";
-            priority = 1000;
+            priority = 1100;
             option = {
               inherit get_bufnrs;
             };
