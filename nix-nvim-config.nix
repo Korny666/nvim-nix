@@ -373,10 +373,6 @@ in
             };
           }
           {
-            name = "copilot";
-            priority = 400;
-          }
-          {
             name = "rg";
             priority = 300;
           }
