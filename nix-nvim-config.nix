@@ -29,13 +29,21 @@ in
     winwidth = 80;
   };
   colorschemes.onedark.enable = true;
-  # Format on save
   extraConfigVim = ''
-    set expandtab        " Tabs → Spaces
-    set shiftwidth=2     " >>/<< rückt um 2 Spaces ein/aus
-    set tabstop=2        " Tabstops alle 2 Spaces
-    set softtabstop=2    " <Tab>/<BS> fügt 2 Spaces ein/löscht
-    autocmd BufWritePre * lua vim.lsp.buf.format({ async = false })  
+    set expandtab
+    set shiftwidth=2
+    set tabstop=2
+    set softtabstop=2
+    function! ToggleListChars()
+      if &l:list
+        setlocal nolist
+      else
+        setlocal list
+      endif
+    endfunction
+    command! ToggleList call ToggleListChars()
+    set listchars=eol:↴,trail:·,tab:→\ ,extends:>,precedes:<,space:·
+    autocmd BufWritePre * lua vim.lsp.buf.format({ async = false }) 
   '';
   plugins = {
     colorizer = {
@@ -496,6 +504,14 @@ in
       action = "<cmd>lua require'telescope.builtin'.buffers({sort_lastused=true, sort_mru=true})<CR>";
       options.desc = "Find buffers (sorted)";
       mode = [ "n" ];
+    }
+    {
+      key = "<Leader>l";
+      action = "<cmd>:ToggleList<CR>";
+      options = {
+        desc = "Toggle invisible chars";
+        silent = true;
+      };
     }
   ];
 }
