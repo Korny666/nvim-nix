@@ -290,6 +290,14 @@ in
           select = "x";
         };
       };
+      finder = {
+        keys = {
+          shuttle = "<Tab>";
+          toggleOrOpen = "<CR>";
+          tabnew = "<CR>";
+          quit = "<Esc>";
+        };
+      };
       outline = {
         autoClose = true;
         autoPreview = true;
@@ -297,9 +305,9 @@ in
         layout = "normal"; # normal or float
         winPosition = "right"; # left or right
         keys = {
-          jump = "e";
-          quit = "q";
-          toggleOrJump = "o";
+          jump = "<CR>";
+          quit = "<Esc>";
+          toggleOrJump = "<CR>";
         };
       };
       scrollPreview = {
@@ -515,7 +523,6 @@ in
         "t"
       ];
     }
-
     {
       key = "<c-n>";
       action = "<cmd>NvimTreeToggle<CR>";
@@ -622,7 +629,6 @@ in
         silent = true;
       };
     }
-
     {
       mode = "n";
       key = "gT";
@@ -632,7 +638,6 @@ in
         silent = true;
       };
     }
-
     {
       mode = "n";
       key = "K";
@@ -642,7 +647,6 @@ in
         silent = true;
       };
     }
-
     {
       mode = "n";
       key = "<leader>cw";
@@ -662,7 +666,6 @@ in
         silent = true;
       };
     }
-
     {
       mode = "n";
       key = "<leader>ca";
@@ -682,7 +685,6 @@ in
         silent = true;
       };
     }
-
     {
       mode = "n";
       key = "[d";
@@ -692,7 +694,6 @@ in
         silent = true;
       };
     }
-
     {
       mode = "n";
       key = "]d";
