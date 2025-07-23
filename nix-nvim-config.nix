@@ -146,6 +146,15 @@ in
     # Show Head of current function on top
     treesitter-context = {
       enable = true;
+      settings = {
+        line_numbers = true;
+        max_lines = 2;
+        min_window_height = 2;
+        mode = "topline";
+        multiline_threshold = 2;
+        trim_scope = "outer";
+        zindex = 2;
+      };
     };
     #  # QoL for code, showing definitions, current scope, renaming, etc...
     treesitter-refactor = {
