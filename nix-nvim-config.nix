@@ -558,6 +558,11 @@ in
       options.desc = "Rename Symbol";
     }
     {
+      key = "<F3>";
+      action = ":%s#F#T#g";
+      options.desc = "Search and replace in current file";
+    }
+    {
       key = "<Leader>id";
       action = "<cmd>lua vim.api.nvim_put({io.popen('uuidgen'):read():sub(1, -2)}, 'c', true, true)<CR>";
       options.desc = "Insert UUID";
