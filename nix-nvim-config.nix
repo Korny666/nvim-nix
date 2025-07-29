@@ -18,7 +18,6 @@ in
   globals = {
     mapleader = " ";
     maplocalleader = " ";
-
   };
   clipboard.register = "unnamed,unnamedplus";
   opts = {
@@ -233,7 +232,7 @@ in
           filetypes = [ "nix" ];
           settings =
             let
-              flake = ''(builtins.getFlake "/etc/nixos/flake")""'';
+              flake = ''(builtins.getFlake "/etc/nixos")""'';
             in
             {
               nixpkgs = {
@@ -335,8 +334,15 @@ in
 
     cmp = {
       enable = true;
-      autoEnableSources = true;
+      autoEnableSources = false;
       settings = {
+        window = {
+          documentation.maxHeight = "math.floor(40 * (40 / vim.o.lines))";
+          completion = {
+            colOffset = -3;
+            sidePadding = 0;
+          };
+        };
         mapping = {
           "<C-d>" = # Lua
             "cmp.mapping.scroll_docs(-4)";
@@ -411,10 +417,6 @@ in
             priority = 300;
           }
           {
-            name = "cmdline";
-            priority = 300;
-          }
-          {
             name = "spell";
             priority = 300;
           }
@@ -448,9 +450,6 @@ in
     cmp-path = {
       enable = true;
     }; # file system paths
-    cmp-cmdline = {
-      enable = true;
-    }; # autocomplete for cmdline
     cmp-nvim-lsp-document-symbol = {
       enable = true;
     }; # docs
