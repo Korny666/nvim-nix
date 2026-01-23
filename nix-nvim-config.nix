@@ -122,7 +122,12 @@ in
       };
     };
     # Filebrowser
-    nvim-tree.enable = true;
+    nvim-tree = {
+      enable = true;
+      settings = {
+        update_focused_file.enable = true;
+      };
+    };
     web-devicons.enable = true; # Warning wants this explicitly
 
     # Floating definitions, etc.:
