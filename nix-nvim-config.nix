@@ -42,7 +42,6 @@ in
     endfunction
     command! ToggleList call ToggleListChars()
     set listchars=eol:↴,trail:·,tab:→\ ,extends:>,precedes:<,space:·
-    autocmd BufWritePre * lua vim.lsp.buf.format({ async = false }) 
   '';
   plugins = {
     colorizer = {
@@ -125,6 +124,28 @@ in
     # Filebrowser
     nvim-tree.enable = true;
     web-devicons.enable = true; # Warning wants this explicitly
+
+    # Floating definitions, etc.:
+    treesitter-textobjects = {
+      enable = true;
+      settings = {
+        lspInterop.enable = true;
+        move.enable = true;
+      };
+    };
+
+    # QoL for code, showing definitions, current scope, renaming, etc...
+    treesitter-refactor = {
+      enable = true;
+      settings = {
+        highlightCurrentScope.enable = true;
+        highlightDefinitions.enable = true;
+        navigation.enable = true;
+        # Rename with "grr"
+        smartRename.enable = true;
+      };
+    };
+
     # Language Higlighting etc.
     treesitter = {
       enable = true;
@@ -155,22 +176,6 @@ in
         zindex = 2;
       };
     };
-    #  # QoL for code, showing definitions, current scope, renaming, etc...
-    treesitter-refactor = {
-      enable = true;
-      highlightCurrentScope.enable = true;
-      highlightDefinitions.enable = true;
-      navigation.enable = true;
-      # Rename with "grr"
-      smartRename.enable = true;
-    };
-
-    # Floating definitions, etc.:
-    treesitter-textobjects = {
-      enable = true;
-      lspInterop.enable = true;
-      move.enable = true;
-    };
 
     ts-comments.enable = true;
 
@@ -185,7 +190,7 @@ in
         cssls.enable = true;
         tailwindcss.enable = true;
         ts_ls = {
-          enable = true;
+          enable = false;
           settings = {
             init_options = {
               plugins = [
@@ -208,7 +213,7 @@ in
           };
         };
         eslint = {
-          enable = true;
+          enable = false;
           filetypes = [
             "javascript"
             "javascriptreact"
@@ -249,83 +254,85 @@ in
 
     lspsaga = {
       enable = true;
-      ui = {
-        border = "rounded"; # One of none, single, double, rounded, solid, shadow
-        codeAction = "󰴺";
-      };
-      hover = {
-        openCmd = "!floorp"; # Choose your browser
-        openLink = "gx";
-      };
-      diagnostic = {
-        borderFollow = true;
-        diagnosticOnlyCurrent = false;
-        showCodeAction = true;
-        extendRelatedInformation = true;
-      };
-      symbolInWinbar = {
-        enable = true; # Breadcrumbs
-      };
-      codeAction = {
-        extendGitSigns = false;
-        showServerName = true;
-        onlyInCursor = true;
-        numShortcut = true;
-        keys = {
-          exec = "<CR>";
-          quit = [
-            "<Esc>"
-            "q"
-          ];
+      settings = {
+        implement = {
+          enable = false;
         };
-      };
-      lightbulb = {
-        enable = false;
-        sign = false;
-        virtualText = true;
-      };
-      implement = {
-        enable = false;
-      };
-      rename = {
-        autoSave = false;
-        keys = {
-          exec = "<CR>";
-          quit = [
-            "<C-k>"
-            "<Esc>"
-          ];
-          select = "x";
+        outline = {
+          autoClose = true;
+          autoPreview = true;
+          closeAfterJump = true;
+          layout = "normal"; # normal or float
+          winPosition = "right"; # left or right
+          keys = {
+            jump = "<CR>";
+            quit = "<Esc>";
+            toggleOrJump = "<CR>";
+          };
         };
-      };
-      finder = {
-        keys = {
-          shuttle = "<Tab>";
-          toggleOrOpen = "<CR>";
-          tabnew = "<CR>";
-          quit = "<Esc>";
+        symbolInWinbar = {
+          enable = true; # Breadcrumbs
         };
-      };
-      outline = {
-        autoClose = true;
-        autoPreview = true;
-        closeAfterJump = true;
-        layout = "normal"; # normal or float
-        winPosition = "right"; # left or right
-        keys = {
-          jump = "<CR>";
-          quit = "<Esc>";
-          toggleOrJump = "<CR>";
+        rename = {
+          autoSave = false;
+          keys = {
+            exec = "<CR>";
+            quit = [
+              "<C-k>"
+              "<Esc>"
+            ];
+            select = "x";
+          };
         };
-      };
-      scrollPreview = {
-        scrollDown = "<C-f>";
-        scrollUp = "<C-b>";
+        ui = {
+          border = "rounded"; # One of none, single, double, rounded, solid, shadow
+          codeAction = "󰴺";
+        };
+        hover = {
+          openCmd = "!floorp"; # Choose your browser
+          openLink = "gx";
+        };
+        diagnostic = {
+          borderFollow = true;
+          diagnosticOnlyCurrent = false;
+          showCodeAction = true;
+          extendRelatedInformation = true;
+        };
+        codeAction = {
+          extendGitSigns = false;
+          showServerName = true;
+          onlyInCursor = true;
+          numShortcut = true;
+          keys = {
+            exec = "<CR>";
+            quit = [
+              "<Esc>"
+              "q"
+            ];
+          };
+        };
+        lightbulb = {
+          enable = false;
+          sign = false;
+          virtualText = true;
+        };
+        finder = {
+          keys = {
+            shuttle = "<Tab>";
+            toggleOrOpen = "<CR>";
+            tabnew = "<CR>";
+            quit = "<Esc>";
+          };
+        };
+        scrollPreview = {
+          scrollDown = "<C-f>";
+          scrollUp = "<C-b>";
+        };
       };
     };
     lsp-signature.enable = true;
     lsp-status.enable = true;
-    lsp-format.enable = true;
+    lsp-format.enable = false;
     lspkind.enable = true;
 
     cmp-emoji = {
@@ -533,7 +540,7 @@ in
     }
     {
       key = "<c-n>";
-      action = "<cmd>NvimTreeToggle<CR>";
+      action = "<cmd>NvimTreeToggle NvimTreeFindFile<CR>";
       options.desc = "Toggle File browser";
     }
     {
