@@ -131,6 +131,10 @@ in
       enable = true;
       settings = {
         update_focused_file.enable = true;
+        git = {
+          enable = true;
+          ignore = false;
+        };
       };
     };
     web-devicons.enable = true; # Warning wants this explicitly
