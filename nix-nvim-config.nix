@@ -28,6 +28,11 @@ in
     winwidth = 80;
   };
   colorschemes.onedark.enable = true;
+  extraPackages = with pkgs; [
+    prettierd
+    nodePackages.prettier
+    nodePackages.eslint
+  ];
   extraConfigVim = ''
     set expandtab
     set shiftwidth=2
@@ -183,42 +188,64 @@ in
     };
 
     ts-comments.enable = true;
+    conform-nvim = {
+
+      enable = true;
+      settings = {
+        format_on_save = {
+          timeout_ms = 1000;
+          lsp_fallback = false; # wir wollen hier bewusst nicht auf LSP zurückfallen
+        };
+        formatters_by_ft = {
+          vue = [
+            "prettierd"
+            "prettier"
+          ];
+          javascript = [
+            "prettierd"
+            "prettier"
+          ];
+          typescript = [
+            "prettierd"
+            "prettier"
+          ];
+          javascriptreact = [
+            "prettierd"
+            "prettier"
+          ];
+          typescriptreact = [
+            "prettierd"
+            "prettier"
+          ];
+          json = [
+            "prettierd"
+            "prettier"
+          ];
+          yaml = [
+            "prettierd"
+            "prettier"
+          ];
+          markdown = [
+            "prettierd"
+            "prettier"
+          ];
+        };
+      };
+    };
 
     # Language Server:
     lsp = {
       enable = true;
       inlayHints = true;
       servers = {
-        # prismals.enable = true;
-        # prismals.package = pkgs.nodePackages."@prisma/language-server"; Seems broken as of 25.05
-        volar.enable = true;
         cssls.enable = true;
         tailwindcss.enable = true;
         ts_ls = {
-          enable = false;
-          settings = {
-            init_options = {
-              plugins = [
-                {
-                  name = "@vue/typescript-plugin";
-                  location = "${pkgs.vue-language-server}/lib/node_modules/@vue/language-server";
-                  languages = [
-                    "javascript"
-                    "typescript"
-                    "vue"
-                  ];
-                }
-              ];
-            };
-            filetypes = [
-              "javascript"
-              "typescript"
-              "vue"
-            ];
-          };
+          enable = true;
+
         };
         eslint = {
-          enable = false;
+          enable = true;
           filetypes = [
             "javascript"
             "javascriptreact"
@@ -230,6 +257,10 @@ in
             "svelte"
             "astro"
           ];
+        };
+        vue_ls = {
+          enable = true;
+          tslsIntegration = true;
         };
         bashls.enable = true;
         postgres_lsp.enable = true;
