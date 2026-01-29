@@ -307,7 +307,7 @@ in
           keys = {
             jump = "<CR>";
             quit = "<Esc>";
-            toggleOrJump = "<CR>";
+            toggle_or_jump = "<CR>";
           };
         };
         symbolInWinbar = {
@@ -359,7 +359,7 @@ in
         finder = {
           keys = {
             shuttle = "<Tab>";
-            toggleOrOpen = "<CR>";
+            toggle_or_open = "<CR>";
             tabnew = "<CR>";
             quit = "<Esc>";
           };
