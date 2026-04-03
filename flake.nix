@@ -38,6 +38,7 @@
           '';
         };
         default = self.packages."${system}".nix-nvim;
+        fonts = pkgs.nerd-fonts.inconsolata-go;
       };
     };
 }
