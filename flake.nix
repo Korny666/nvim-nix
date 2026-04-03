@@ -21,6 +21,12 @@
       pkgs = import nixpkgs { inherit system; };
     in
     {
+      nixosModules.default = { pkgs, ... }: {
+        environment.systemPackages = [
+          self.packages.${pkgs.stdenv.hostPlatform.system}.default
+        ];
+      };
+
       packages."${system}" = {
         nix-nvim = nixvim.legacyPackages."${system}".makeNixvimWithModule {
           inherit pkgs;
