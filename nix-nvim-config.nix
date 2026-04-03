@@ -32,6 +32,7 @@ in
     prettierd
     nodePackages.prettier
     nodePackages.eslint
+    gcc
   ];
   extraConfigVim = ''
     set expandtab
