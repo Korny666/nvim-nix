@@ -26,6 +26,9 @@ in
     cursorline = true;
     undofile = true;
     winwidth = 80;
+    # The kitty launcher deliberately does not pass --title, so the window
+    # title follows the buffer instead of being frozen.
+    title = true;
   };
   colorschemes.onedark.enable = true;
   extraPackages = with pkgs; [
