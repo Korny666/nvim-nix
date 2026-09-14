@@ -28,7 +28,16 @@
       buildFor =
         system:
         let
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            # hrsh7th/cmp-nvim-lsp-document-symbol ships without a license
+            # file, so the generated plugin list in nixpkgs marks it unfree.
+            # The config uses it as a completion source, so allow exactly that
+            # one package instead of opening the gate for everything. Uses the
+            # lib of the input rather than pkgs.lib, which is not built yet.
+            config.allowUnfreePredicate =
+              pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "cmp-nvim-lsp-document-symbol" ];
+          };
           lib = pkgs.lib;
 
           nerdFont = pkgs.nerd-fonts.inconsolata-go;
