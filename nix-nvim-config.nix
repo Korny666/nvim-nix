@@ -152,33 +152,28 @@ in
       };
     };
 
-    # QoL for code, showing definitions, current scope, renaming, etc...
-    treesitter-refactor = {
-      enable = true;
-      settings = {
-        highlightCurrentScope.enable = true;
-        highlightDefinitions.enable = true;
-        navigation.enable = true;
-        # Rename with "grr"
-        smartRename.enable = true;
-      };
-    };
+    # treesitter-refactor is deliberately absent: it exists only against the
+    # legacy nvim-treesitter, which cannot be loaded beside the current one.
+    # Renaming is covered by neovim's own LSP mapping on "grn".
 
     # Language Higlighting etc.
     treesitter = {
       enable = true;
-      grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
       nixvimInjections = true;
 
-      settings = {
-        #    highlight.enable = true;
-        # Install missing Parsers
-        auto_install = true;
-        # Mark Code Blocks
-        incremental_selection.enable = true;
-        # Indent Code
-        indent.enable = true;
-      };
+      # Grammars default to the ones belonging to the configured
+      # nvim-treesitter package. Do not reach into pkgs.vimPlugins here, that
+      # pairs parsers with query files from another version.
+
+      # The current nvim-treesitter drives these through neovim's own
+      # treesitter API, so they are module options instead of plugin settings.
+      #    highlight.enable = true;
+      # Indent Code
+      indent.enable = true;
+
+      # auto_install and incremental_selection are gone with this version:
+      # grammars come from nix anyway, and incremental selection moved out of
+      # nvim-treesitter entirely.
     };
 
     # Show Head of current function on top
