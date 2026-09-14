@@ -3,10 +3,10 @@
 
   inputs = {
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
   };
 
   outputs =
@@ -139,6 +139,13 @@
                 esac
               done
 
+              # kitty ships with this package, so this only bites when the
+              # launcher is installed without it.
+              if ! command -v kitty > /dev/null 2>&1; then
+                echo "nvim: no kitty on PATH, using the current terminal instead" >&2
+                inline "$@"
+              fi
+
               rc_file=$(mktemp)
               trap 'rm -f "$rc_file"' EXIT
 
@@ -220,6 +227,9 @@
         {
           environment.systemPackages = [
             (self.packages.${sys}.default or (throw "nvim-nix: unsupported system ${sys}"))
+            # kitty from the system's own nixpkgs, so there is always one on
+            # hand that matches the graphics driver.
+            pkgs.kitty
           ];
           # Only so the rest of the system can use the font as well. The
           # launcher does not rely on it, it carries its own fontconfig.

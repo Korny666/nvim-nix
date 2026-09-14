@@ -24,6 +24,7 @@ the caller instead of helping it:
 - `NVIM_KITTY` is set, which means you are already inside a window the launcher opened
 - the call is `--headless`, `--version` or `--help`, and only wants to print something
 - `NVIM_NO_KITTY` is set, the explicit opt out
+- there is no kitty on the path, which only happens if the launcher is installed without it
 - kitty itself failed to start, in which case the launcher says so and runs neovim anyway
 
 The exit code is always neovim's own, so `EDITOR=nvim` and `git commit` keep
@@ -45,10 +46,22 @@ working. Note that they do open a window, which is the point of the setup. Use
 
 `kitty/nvim.conf` is the place to change the font, its size or the colors.
 
+## Keep the flake in step with your system
+
+kitty draws with OpenGL, and on NixOS an OpenGL program has to come from the
+same nixpkgs generation as the driver under `/run/opengl-driver`. A kitty built
+from an older nixpkgs cannot load a newer Mesa. It then finds no EGL platform
+at all and crashes on startup.
+
+So the `nixpkgs` and `nixvim` inputs here track a NixOS release on purpose, and
+that release should be the one the machine runs. The symptom of a drift is
+`nvim` falling back to the terminal with an EGL error on stderr. The fix is to
+point both inputs at the release from `nixos-version` and run `nix flake update`.
+
 ## Install
 
-As a NixOS module, which also puts the font into `fonts.packages` for the rest
-of the system:
+As a NixOS module, which also installs kitty from the system's own nixpkgs and
+puts the font into `fonts.packages` for the rest of the system:
 
 ```nix
 {
