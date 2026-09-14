@@ -33,8 +33,8 @@ in
   colorschemes.onedark.enable = true;
   extraPackages = with pkgs; [
     prettierd
-    nodePackages.prettier
-    nodePackages.eslint
+    prettier
+    eslint
     gcc
   ];
   extraConfigVim = ''
@@ -288,7 +288,7 @@ in
                 expr = "import ${flake}.inputs.nixpkgs { }";
               };
               formatting = {
-                command = [ "${lib.getExe pkgs.nixfmt-rfc-style}" ];
+                command = [ "${lib.getExe pkgs.nixfmt}" ];
               };
             };
 
