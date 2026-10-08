@@ -3,10 +3,10 @@
 
   inputs = {
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
   };
 
   outputs =
@@ -32,7 +32,15 @@
 
       packages = forAllSystems (system:
         let
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            # upstream repos have no license file, so nixpkgs marks them unfree
+            config.allowUnfreePredicate = pkg:
+              builtins.elem (nixpkgs.lib.getName pkg) [
+                "cmp-emoji"
+                "cmp-nvim-lsp-document-symbol"
+              ];
+          };
         in {
           nix-nvim = nixvim.legacyPackages.${system}.makeNixvimWithModule {
             inherit pkgs;

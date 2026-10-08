@@ -30,8 +30,8 @@ in
   colorschemes.onedark.enable = true;
   extraPackages = with pkgs; [
     prettierd
-    nodePackages.prettier
-    nodePackages.eslint
+    prettier
+    eslint
     gcc
   ];
   extraConfigVim = ''
@@ -149,33 +149,15 @@ in
       };
     };
 
-    # QoL for code, showing definitions, current scope, renaming, etc...
-    treesitter-refactor = {
-      enable = true;
-      settings = {
-        highlightCurrentScope.enable = true;
-        highlightDefinitions.enable = true;
-        navigation.enable = true;
-        # Rename with "grr"
-        smartRename.enable = true;
-      };
-    };
-
     # Language Higlighting etc.
     treesitter = {
       enable = true;
       grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
       nixvimInjections = true;
 
-      settings = {
-        #    highlight.enable = true;
-        # Install missing Parsers
-        auto_install = true;
-        # Mark Code Blocks
-        incremental_selection.enable = true;
-        # Indent Code
-        indent.enable = true;
-      };
+      highlight.enable = true;
+      # Indent Code
+      indent.enable = true;
     };
 
     # Show Head of current function on top
@@ -285,7 +267,7 @@ in
                 expr = "import ${flake}.inputs.nixpkgs { }";
               };
               formatting = {
-                command = [ "${lib.getExe pkgs.nixfmt-rfc-style}" ];
+                command = [ "${lib.getExe pkgs.nixfmt}" ];
               };
             };
 
